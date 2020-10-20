@@ -14,15 +14,13 @@ namespace ICB.SmartHome.IdentityServer4.Data
               : base(options)
         { }
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
-
         {
-
             if (!builder.IsConfigured)
-
-                builder.UseSqlServer("Data Source=(LocalDb)\\MSSQLLocalDB;database=SmartHomeIdentity;trusted_connection=yes;");
-
+            {
+                builder.UseSqlServer(DataBaseConfig.DevelopmentConnection);
+            }
         }
-
+        
         public DbSet<Role> roles { get; set; }
         public DbSet<User> users { get; set; }
 

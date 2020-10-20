@@ -11,18 +11,21 @@ namespace ICB.SmartHome.IdentityServer4
 {
     public static class Config
     {
+
         public static IEnumerable<IdentityResource> IdentityResources =>
             new IdentityResource[]
             {
                 new IdentityResources.OpenId(),
-                new IdentityResources.Profile(),
+
+                new IdentityResources.Email(),
+
             };
 
         public static IEnumerable<ApiScope> ApiScopes =>
             new List<ApiScope>
             {
-                new ApiScope("api1", "My API"),
-                new ApiScope("api2", "My API2")
+
+                new ApiScope("api1", "My API")
 
             };
 
@@ -39,6 +42,7 @@ namespace ICB.SmartHome.IdentityServer4
                        {
                            new Secret("secret".Sha256())
                        },
+
                        // where to redirect to after login
                        RedirectUris = { "http://localhost:5002/signin-oidc" },
                   
@@ -51,28 +55,12 @@ namespace ICB.SmartHome.IdentityServer4
                            IdentityServerConstants.StandardScopes.Profile,
                            "api1"
                        },
-                       AllowOfflineAccess = true
+
+                       AllowOfflineAccess = true,
+                       AlwaysIncludeUserClaimsInIdToken = true
 
                    }
 
             };
-        public static List<TestUser> GetUsers()
-        {
-            return new List<TestUser>
-                                     {
-                                         new TestUser
-                                         {
-                                             SubjectId = "2",
-                                             Username = "bob",
-                                             Password = "password",
-                                  
-                                             Claims = new []
-                                             {
-                                                 new Claim("name", "Bob"),
-                                                 new Claim("website", "https://bob.com")
-                                             }
-                                         }
-                                     };
-        }
     }
 }
